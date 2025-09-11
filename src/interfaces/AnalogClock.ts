@@ -14,6 +14,7 @@ export interface AnalogClockSettings {
 export interface AnalogClockProps
   extends AnalogClockSettings {
   setAnalogSettings: Function;
+
 }
 
 export interface AnalogSettingsProps
@@ -21,7 +22,12 @@ export interface AnalogSettingsProps
   setShowSettings: Function;
 }
 
-export interface AnalogClockAnimationArgs
-  extends AnalogClockSettings {
+export interface AnalogClockAnimationArgs extends AnalogClockSettings {
   canvas: HTMLCanvasElement;
+  time: Date;
 }
+
+export interface AnalogClockProps extends AnalogClockSettings {
+  setAnalogSettings: Function;
+}
+

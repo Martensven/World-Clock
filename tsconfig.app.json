@@ -30,6 +30,7 @@
   "include": [
     "src",
     "src/**/*.test.tsx",
-    "src/test/**/*"
+    "src/test/**/*",
+    "cityList.js"
   ]
 }

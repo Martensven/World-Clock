@@ -1,4 +1,4 @@
-export default validCountries[
+const validCountries = [
     { "countryName": "Afghanistan" },
     { "countryName": "Åland Islands" },
     { "countryName": "Albania" },
@@ -247,4 +247,6 @@ export default validCountries[
     { "countryName": "Yemen" },
     { "countryName": "Zambia" },
     { "countryName": "Zimbabwe" }
-]
+];
+
+export default validCountries;

@@ -1,4 +1,6 @@
-export default cityList[
+
+
+const cityList = [
     {
         cityName: "London",
         countryName: "United Kingdom",
@@ -15,7 +17,7 @@ export default cityList[
         cityName: "Helsinki",
         countryName: "Finland",
         timeZone: 2,
-        featuredCity: "false"
+        featuredCity: "true"
     },
     {
         cityName: "Moscow",
@@ -92,39 +94,41 @@ export default cityList[
     {
         cityName: "Honolulu",
         countryName: "United States",
-        timeZone: -10,
+        timeZone: -9,
         featuredCity: "false"
     },
     {
         cityName: "Anchorage",
         countryName: "United States",
-        timeZone: -9,
+        timeZone: -8,
         featuredCity: "false"
     },
     {
         cityName: "Los Angeles",
         countryName: "United States",
-        timeZone: -8,
+        timeZone: -7,
         featuredCity: "true"
     },
     {
         cityName: "Denver",
         countryName: "United States",
-        timeZone: -7,
+        timeZone: -6,
         featuredCity: "false"
     },
     {
         cityName: "Chicago",
         countryName: "United States",
-        timeZone: -6,
+        timeZone: -5,
         featuredCity: "false"
     },
     {
         cityName: "New York",
         countryName: "United States",
-        timeZone: -5,
+        timeZone: -4,
         featuredCity: "true"
     }
 ];
+
+export default cityList
 
 
