@@ -8,9 +8,9 @@ export default function Header() {
             <header>
                 <h1>World Clock</h1>
                 <section>
-                    <Link to="/"><button>Start</button></Link>
-                    <Link to="/add-city"><button>Lägg till</button></Link>
-                    <Link to="/favorites"><button>Favoriter</button></Link>
+                    <Link to="/World-Clock"><button>Start</button></Link>
+                    <Link to="/World-Clock/add-city"><button>Lägg till</button></Link>
+                    <Link to="/World-Clock/favorites"><button>Favoriter</button></Link>
                 </section>
             </header>
         </>
