@@ -6,6 +6,7 @@ export default function AddCity() {
     const [countryName, setCountryName] = useState("");
     const [timeZone, setTimeZone] = useState<number>(0);
     const [featured, setFeatured] = useState(false);
+    const [favorite, setFavorite] = useState(false);
     const [message, setMessage] = useState<string | null>(null);
 
     function handleSubmit(e: React.FormEvent) {
@@ -20,7 +21,8 @@ export default function AddCity() {
             cityName,
             countryName,
             timeZone,
-            featured ? "true" : "false"
+            featured ? "true" : "false",
+            favorite
         );
 
         if (newCity) {
@@ -29,6 +31,7 @@ export default function AddCity() {
             setCountryName("");
             setTimeZone(0);
             setFeatured(false);
+            setFavorite(false);
         } else {
             setMessage("Staden finns redan i listan");
         }
@@ -63,6 +66,14 @@ export default function AddCity() {
                         onChange={(e) => setFeatured(e.target.checked)}
                     />
                     Featured
+                </label>
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={favorite}
+                        onChange={(e) => setFavorite(e.target.checked)}
+                    />
+                    Favorit
                 </label>
                 <button type="submit">Lägg till stad</button>
             </form>

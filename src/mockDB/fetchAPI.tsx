@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import cityList from "./cityList";
+import { getCities, toggleFavorite } from "./cityUtils";
 import AnalogClock from "../components/clocks/AnalogClock";
 import "./style.css";
 
@@ -8,6 +8,7 @@ interface City {
     countryName: string;
     timeZone: number;
     featuredCity: string;
+    favorite?: boolean;
 }
 
 interface CityCard extends City {
@@ -20,14 +21,6 @@ export default function FetchAPI() {
     const [cityCards, setCityCards] = useState<CityCard[]>([]);
     const [error, setError] = useState<string | null>(null);
 
-    function getCityData(name: string): City | null {
-        return (
-            cityList.find(
-                (c) => c.cityName.toLowerCase() === name.trim().toLowerCase()
-            ) ?? null
-        );
-    }
-
     function calculateLocalTime(offset: number): Date {
         const nowUTC = new Date();
         const utcMillis = nowUTC.getTime() + nowUTC.getTimezoneOffset() * 60000;
@@ -36,7 +29,11 @@ export default function FetchAPI() {
     }
 
     function handleSearch() {
-        const match = getCityData(cityInput);
+        const cities = getCities();
+        const match = cities.find(
+            (c) => c.cityName.toLowerCase() === cityInput.trim().toLowerCase()
+        );
+
         if (!match) {
             setError("Staden hittades inte");
             return;
@@ -50,7 +47,6 @@ export default function FetchAPI() {
             return;
         }
 
-        // 🔄 Markera staden som featured
         match.featuredCity = "true";
 
         const newCard: CityCard = {
@@ -75,14 +71,27 @@ export default function FetchAPI() {
     }
 
     function removeCard(cityName: string) {
+        setCityCards((prev) => prev.filter((card) => card.cityName !== cityName));
+    }
+
+    function handleFavorite(cityName: string) {
+        const updatedCities = toggleFavorite(cityName);
         setCityCards((prev) =>
-            prev.filter((card) => card.cityName !== cityName)
+            prev.map((card) =>
+                card.cityName === cityName
+                    ? {
+                        ...card,
+                        favorite:
+                            updatedCities.find((c) => c.cityName === cityName)?.favorite ??
+                            false,
+                    }
+                    : card
+            )
         );
     }
 
-    // ✅ Lägg till alla featured-städer vid första renderingen
     useEffect(() => {
-        const featuredCities = cityList
+        const featuredCities = getCities()
             .filter((c) => c.featuredCity === "true")
             .map((c) => ({
                 ...c,
@@ -93,7 +102,6 @@ export default function FetchAPI() {
         setCityCards(featuredCities);
     }, []);
 
-    // ✅ Uppdatera klockan varje sekund
     useEffect(() => {
         const interval = setInterval(() => {
             setCityCards((prev) =>
@@ -110,7 +118,6 @@ export default function FetchAPI() {
         <div>
             <h1>Städer & klockor</h1>
 
-            {/* Sökruta */}
             <div className="searchContainer">
                 <input
                     type="search"
@@ -125,7 +132,6 @@ export default function FetchAPI() {
 
             {error && <p>{error}</p>}
 
-            {/* Grid med städer */}
             <div className="cardContainer">
                 {cityCards.map((card) => (
                     <div key={card.cityName} className="cityCard">
@@ -153,6 +159,10 @@ export default function FetchAPI() {
 
                         <button onClick={() => toggleMode(card.cityName)}>
                             Byt till {card.mode === "digital" ? "analog" : "digital"}
+                        </button>
+
+                        <button onClick={() => handleFavorite(card.cityName)}>
+                            {card.favorite ? "★ Favorit" : "☆ Lägg till favorit"}
                         </button>
                     </div>
                 ))}

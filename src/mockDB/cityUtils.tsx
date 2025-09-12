@@ -1,3 +1,4 @@
+// cityUtils.ts
 import cityList from "./cityList";
 
 export interface City {
@@ -5,28 +6,37 @@ export interface City {
     countryName: string;
     timeZone: number;
     featuredCity: string;
+    favorite?: boolean; // ny flagga
 }
 
-/**
- * Lägg till en ny stad i cityList
- * @param cityName Namn på staden
- * @param countryName Namn på landet
- * @param timeZone Tidszon (t.ex. +1, -5)
- * @param featuredCity "true" eller "false"
- * @returns Den nya staden om den lades till, annars null
- */
+const STORAGE_KEY = "cities";
+
+export function getCities(): City[] {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+        return JSON.parse(stored) as City[];
+    }
+    return cityList.map((c) => ({ ...c, favorite: false })); // fallback
+}
+
+function saveCities(cities: City[]) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(cities));
+}
+
 export function addCity(
     cityName: string,
     countryName: string,
     timeZone: number,
-    featuredCity: "true" | "false" = "false"
+    featuredCity: "true" | "false" = "false",
+    favorite: boolean = false
 ): City | null {
-    const alreadyExists = cityList.some(
+    const cities = getCities();
+
+    const alreadyExists = cities.some(
         (c) => c.cityName.toLowerCase() === cityName.toLowerCase()
     );
 
     if (alreadyExists) {
-        console.warn("Staden finns redan i listan.");
         return null;
     }
 
@@ -35,8 +45,19 @@ export function addCity(
         countryName,
         timeZone,
         featuredCity,
+        favorite,
     };
 
-    cityList.push(newCity); // 🔄 lägg till i listan
+    const updatedCities = [...cities, newCity];
+    saveCities(updatedCities);
+
     return newCity;
+}
+
+export function toggleFavorite(cityName: string): City[] {
+    const cities = getCities().map((c) =>
+        c.cityName === cityName ? { ...c, favorite: !c.favorite } : c
+    );
+    saveCities(cities);
+    return cities;
 }
