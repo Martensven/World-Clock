@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import cityList from "./cityList";
 import AnalogClock from "../components/clocks/AnalogClock";
-import "./style.css"
+import "./style.css";
 
 interface City {
     cityName: string;
@@ -21,9 +21,11 @@ export default function FetchAPI() {
     const [error, setError] = useState<string | null>(null);
 
     function getCityData(name: string): City | null {
-        return cityList.find(
-            (c) => c.cityName.toLowerCase() === name.trim().toLowerCase()
-        ) ?? null;
+        return (
+            cityList.find(
+                (c) => c.cityName.toLowerCase() === name.trim().toLowerCase()
+            ) ?? null
+        );
     }
 
     function calculateLocalTime(offset: number): Date {
@@ -43,16 +45,16 @@ export default function FetchAPI() {
         const alreadyExists = cityCards.some(
             (c) => c.cityName.toLowerCase() === match.cityName.toLowerCase()
         );
-
         if (alreadyExists) {
             setError("Staden är redan tillagd");
             return;
         }
 
-        // ✅ Gör staden featured oavsett vad cityList säger
+        // 🔄 Markera staden som featured
+        match.featuredCity = "true";
+
         const newCard: CityCard = {
             ...match,
-            featuredCity: "true",
             currentTime: calculateLocalTime(match.timeZone),
             mode: "digital",
         };
@@ -105,50 +107,38 @@ export default function FetchAPI() {
     }, []);
 
     return (
-        <div className="">
-            <h1 className="">Sök efter en stad</h1>
+        <div>
+            <h1>Städer & klockor</h1>
+
+            {/* Sökruta */}
             <div className="searchContainer">
                 <input
                     type="search"
                     value={cityInput}
                     onChange={(e) => setCityInput(e.target.value)}
                     placeholder="Skriv en stad..."
-                    className=""
                 />
-                <button
-                    onClick={handleSearch}
-                    disabled={!cityInput}
-                    className=""
-                >
+                <button onClick={handleSearch} disabled={!cityInput}>
                     Sök
                 </button>
             </div>
 
-            {error && <p className="">{error}</p>}
+            {error && <p>{error}</p>}
 
+            {/* Grid med städer */}
             <div className="cardContainer">
                 {cityCards.map((card) => (
-                    <div
-                        key={card.cityName}
-                        className="cityCard"
-                    >
-                        <button
-                            onClick={() => removeCard(card.cityName)}
-                            className=""
-                        >
-                            ✕
-                        </button>
-                        <h2 className="">{card.cityName}</h2>
-                        <p className="">{card.countryName}</p>
-                        <p className="">
+                    <div key={card.cityName} className="cityCard">
+                        <button onClick={() => removeCard(card.cityName)}>✕</button>
+                        <h2>{card.cityName}</h2>
+                        <p>{card.countryName}</p>
+                        <p>
                             UTC{card.timeZone >= 0 ? "+" : ""}
                             {card.timeZone}
                         </p>
 
                         {card.mode === "digital" ? (
-                            <p className="">
-                                {card.currentTime.toLocaleTimeString("sv-SE", { hour12: false })}
-                            </p>
+                            <p>{card.currentTime.toLocaleTimeString("sv-SE", { hour12: false })}</p>
                         ) : (
                             <AnalogClock
                                 time={card.currentTime}
@@ -161,10 +151,7 @@ export default function FetchAPI() {
                             />
                         )}
 
-                        <button
-                            onClick={() => toggleMode(card.cityName)}
-                            className=""
-                        >
+                        <button onClick={() => toggleMode(card.cityName)}>
                             Byt till {card.mode === "digital" ? "analog" : "digital"}
                         </button>
                     </div>
