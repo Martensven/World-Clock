@@ -14,9 +14,9 @@ export default function App() {
     <Header></Header>
 
     <Routes>
-      <Route path="/" element={<FetchAPI />}></Route>
-      <Route path="/add-city" element={<AddCity />}></Route>
-      <Route path="/favorites" element={<Favorites />}></Route>
+      <Route path="/World-Clock/" element={<FetchAPI />}></Route>
+      <Route path="/World-Clock/add-city" element={<AddCity />}></Route>
+      <Route path="/World-Clock/favorites" element={<Favorites />}></Route>
     </Routes>
 
     <Footer></Footer>
