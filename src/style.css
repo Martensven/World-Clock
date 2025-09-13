@@ -29,6 +29,14 @@ button {
     padding: 7.5px;
 }
 
+button:hover {
+    background-color: hsl(0, 0%, 10%);
+}
+
+button:active {
+    background-color: hsl(0, 0%, 30%);
+}
+
 .searchBtn {
     border-radius: 0px 5px 5px 0px;
 }
@@ -36,7 +44,15 @@ button {
 .removeBtn {
     width: 32.5px;
     height: 32.5px;
-    background-color: rgb(199, 0, 0);
+    background-color: hsl(0, 100%, 39%);
+}
+
+.removeBtn:hover {
+    background-color: hsl(0, 100%, 34%);
+}
+
+.removeBtn:active {
+    background-color: hsl(0, 100%, 44%);
 }
 
 button:hover {
