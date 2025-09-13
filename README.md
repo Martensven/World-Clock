@@ -58,13 +58,10 @@ Jag kan undvika buggar genom att säkerställa att alla inputs tar emot rätt ty
 3. När jag deklarerar state med t.ex. ```useState<CityCard[]>([])``` garanterar TypeScript att det bara kan innehålla CityCard-objekt. Det gör att jag kan typkolla all data (cityName, countryName, timeZone osv.) och inte kan lägga in något ogiltigt.
 
 # Beskriv hur TypeScript transpileras till JavaScript i ditt projekt:
+1. Skrivs i TS/TSX (webbläsaren kan inte läsa direkt)
 
-1. Jag skriver koden i TypeScript (all källkod är TS/TSX). Typerna finns bara under utveckling, webbläsaren kan inte läsa TypeScript.
+2. Vite tar bort typer och transpilerar JSX/TSX till JS
 
-2. Vite omvandlar TS till JS när jag kör "npm run dev". Vite använder esbuild "bakom kulisserna" och tar bort alla typer, kompilerar TS/TSX till vanlig JS, hanterar import/export och JSX (React) och resultatet som skickas till webbläsaren är alltid JavaScript.
+3. Bygger en optimerad bundle i dist/ med JS och statiska assets (bilder och CSS)
 
-3. I tsconfig.app.json har jag noEmit: true och bundler-orienterade inställningar. Det betyder att TypeScript-kompilatorn inte skriver ut några .js-filer själv, istället är det Vite (bundlern) som hanterar översättning och paketering.
-
-4. Om man kör "npm run build" så låter Vite hela projektet transpileras från TS till JS, optimera och slå ihop till en liten och effektiv "bundle" och lägga det färdiga resultatet i mappen "dist/". Webbläsaren får sen bara rena .js-filer och statiska assets (typ bilder och CSS).
-
-5. Sammanfattat: Jag kodar i TS för säkerhet och tydlighet > dev: Vite tar bort typer och levererar JS direkt > build: Vite skapar optimerade JS i "dist/" > Webbläsaren ser aldrig TS utan bara vanlig JS som "bundlern" har genererat åt mig.
+4. Webbläsaren kör sedan bara den färdiga JavaScript-koden
