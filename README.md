@@ -10,3 +10,14 @@ cd World-clock
 npm install
 npm run dev
 ```
+
+#Loggbok
+
+##Skiss
+
+##Uppdelning av applikationen
+
+##Användning av Git
+
+##
+
