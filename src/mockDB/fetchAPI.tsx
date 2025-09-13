@@ -20,6 +20,7 @@ export default function FetchAPI() {
     const [cityInput, setCityInput] = useState("");
     const [cityCards, setCityCards] = useState<CityCard[]>([]);
     const [error, setError] = useState<string | null>(null);
+    const [suggestions, setSuggestions] = useState<City[]>([]);
 
     function calculateLocalTime(offset: number): Date {
         const nowUTC = new Date();
@@ -28,10 +29,11 @@ export default function FetchAPI() {
         return new Date(localMillis);
     }
 
-    function handleSearch() {
+    function handleSearch(cityName?: string) {
         const cities = getCities();
+        const query = cityName ?? cityInput;
         const match = cities.find(
-            (c) => c.cityName.toLowerCase() === cityInput.trim().toLowerCase()
+            (c) => c.cityName.toLowerCase() === query.trim().toLowerCase()
         );
 
         if (!match) {
@@ -58,6 +60,7 @@ export default function FetchAPI() {
         setCityCards([...cityCards, newCard]);
         setError(null);
         setCityInput("");
+        setSuggestions([]); // stäng dropdown
     }
 
     function toggleMode(cityName: string) {
@@ -114,20 +117,48 @@ export default function FetchAPI() {
         return () => clearInterval(interval);
     }, []);
 
+    // Uppdatera förslag när man skriver
+    useEffect(() => {
+        if (!cityInput.trim()) {
+            setSuggestions([]);
+            return;
+        }
+        const cities = getCities();
+        const matches = cities.filter((c) =>
+            c.cityName.toLowerCase().includes(cityInput.toLowerCase())
+        );
+        setSuggestions(matches);
+    }, [cityInput]);
+
     return (
         <main>
             <h1>Städer & klockor</h1>
 
             <div className="searchContainer">
                 <input
+                    className="textInput"
                     type="search"
                     value={cityInput}
                     onChange={(e) => setCityInput(e.target.value)}
                     placeholder="Skriv en stad..."
                 />
-                <button onClick={handleSearch} disabled={!cityInput}>
+                <button className="searchBtn" onClick={() => handleSearch()} disabled={!cityInput}>
                     Sök
                 </button>
+
+                {/* Dropdown med förslag */}
+                {suggestions.length > 0 && (
+                    <ul className="suggestionList">
+                        {suggestions.map((city) => (
+                            <li
+                                key={city.cityName}
+                                onClick={() => handleSearch(city.cityName)}
+                            >
+                                {city.cityName}, {city.countryName}
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </div>
 
             {error && <p>{error}</p>}
@@ -135,7 +166,7 @@ export default function FetchAPI() {
             <div className="cardContainer">
                 {cityCards.map((card) => (
                     <div key={card.cityName} className="cityCard">
-                        <button onClick={() => removeCard(card.cityName)}>✕</button>
+                        <button className="removeBtn" onClick={() => removeCard(card.cityName)}>✕</button>
                         <h2>{card.cityName}</h2>
                         <p>{card.countryName}</p>
                         <p>
@@ -144,7 +175,9 @@ export default function FetchAPI() {
                         </p>
 
                         {card.mode === "digital" ? (
-                            <p className="digitalClock">{card.currentTime.toLocaleTimeString("sv-SE", { hour12: false })}</p>
+                            <p className="digitalClock">
+                                {card.currentTime.toLocaleTimeString("sv-SE", { hour12: false })}
+                            </p>
                         ) : (
                             <AnalogClock
                                 time={card.currentTime}

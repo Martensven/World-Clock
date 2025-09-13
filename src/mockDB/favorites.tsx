@@ -76,7 +76,7 @@ export default function Favorites() {
                 <div className="cardContainer">
                     {favorites.map((card) => (
                         <div key={card.cityName} className="cityCard">
-                            <button onClick={() => removeFavorite(card.cityName)}>✕</button>
+                            <button className="removeBtn" onClick={() => removeFavorite(card.cityName)}>✕</button>
                             <h2>{card.cityName}</h2>
                             <p>{card.countryName}</p>
                             <p>
@@ -85,7 +85,7 @@ export default function Favorites() {
                             </p>
 
                             {card.mode === "digital" ? (
-                                <p>
+                                <p className="digitalClock">
                                     {card.currentTime.toLocaleTimeString("sv-SE", {
                                         hour12: false,
                                     })}

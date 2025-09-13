@@ -42,18 +42,21 @@ export default function AddCity() {
             <h1>Lägg till en ny stad</h1>
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "8px", maxWidth: "300px" }}>
                 <input
+                    className="textInput"
                     type="text"
                     value={cityName}
                     onChange={(e) => setCityName(e.target.value)}
                     placeholder="Stad..."
                 />
                 <input
+                    className="textInput"
                     type="text"
                     value={countryName}
                     onChange={(e) => setCountryName(e.target.value)}
                     placeholder="Land..."
                 />
                 <input
+                    className="textInput"
                     type="number"
                     value={timeZone}
                     onChange={(e) => setTimeZone(Number(e.target.value))}
@@ -65,7 +68,7 @@ export default function AddCity() {
                         checked={featured}
                         onChange={(e) => setFeatured(e.target.checked)}
                     />
-                    Featured
+                    Fäst på startsida
                 </label>
                 <label>
                     <input
@@ -73,7 +76,7 @@ export default function AddCity() {
                         checked={favorite}
                         onChange={(e) => setFavorite(e.target.checked)}
                     />
-                    Favorit
+                    Lägg till som favorit
                 </label>
                 <button type="submit">Lägg till stad</button>
             </form>

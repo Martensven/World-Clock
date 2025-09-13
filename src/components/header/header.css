@@ -1,5 +1,12 @@
 header {
     width: 100%;
     text-align: center;
-    background-color: lavender;
+    background-color: rgb(41, 41, 41);
+    color: white;
+}
+
+header button {
+    margin: 5px;
+    font-size: large;
+
 }

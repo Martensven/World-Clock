@@ -1,5 +1,6 @@
 footer {
     width: 100%;
     text-align: center;
-    border: solid 1px black;
+    background-color: rgb(41, 41, 41);
+    color: white;
 }
