@@ -38,7 +38,7 @@ export default function AddCity() {
     }
 
     return (
-        <div>
+        <main>
             <h1>Lägg till en ny stad</h1>
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "8px", maxWidth: "300px" }}>
                 <input
@@ -78,6 +78,6 @@ export default function AddCity() {
                 <button type="submit">Lägg till stad</button>
             </form>
             {message && <p>{message}</p>}
-        </div>
+        </main>
     );
 }

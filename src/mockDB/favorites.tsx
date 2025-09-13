@@ -68,7 +68,7 @@ export default function Favorites() {
     }, []);
 
     return (
-        <div>
+        <main>
             <h1>Mina favoriter</h1>
             {favorites.length === 0 ? (
                 <p>Du har inga favoriter ännu.</p>
@@ -109,6 +109,6 @@ export default function Favorites() {
                     ))}
                 </div>
             )}
-        </div>
+        </main>
     );
 }

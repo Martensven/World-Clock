@@ -115,7 +115,7 @@ export default function FetchAPI() {
     }, []);
 
     return (
-        <div>
+        <main>
             <h1>Städer & klockor</h1>
 
             <div className="searchContainer">
@@ -144,7 +144,7 @@ export default function FetchAPI() {
                         </p>
 
                         {card.mode === "digital" ? (
-                            <p>{card.currentTime.toLocaleTimeString("sv-SE", { hour12: false })}</p>
+                            <p className="digitalClock">{card.currentTime.toLocaleTimeString("sv-SE", { hour12: false })}</p>
                         ) : (
                             <AnalogClock
                                 time={card.currentTime}
@@ -167,6 +167,6 @@ export default function FetchAPI() {
                     </div>
                 ))}
             </div>
-        </div>
+        </main>
     );
 }
