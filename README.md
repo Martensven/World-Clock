@@ -40,4 +40,31 @@ Styling sköts globalt, då det inte är allt för mycket kod.
 
 ## Användning av Git
 
-Jag har varit lite dålig på att pusha ofta eftersom jag gärna vill få in så mycket som möjligt för varje komponent. Egentligen borde jag ha tagit småsteg och pushat allteftersom, men pga tidspress så blev det inte så denna gång.
+Jag har varit lite dålig på att pusha ofta eftersom jag gärna vill få in så mycket som möjligt för varje komponent. Egentligen borde jag ha tagit småsteg och pushat allt eftersom, men pga tidspress så blev det inte så denna gång.
+
+## Testning
+
+Testning har jag enbart gjort i webbläsaren genom att klicka runt och försöka 
+skapa problem, men jag åker inte på några problem i varken funktion eller console. Skriver man in en stad som redan finns i antingen JSON-filen eller localstorage så får man ett meddelande som påpekar detta.
+
+# Förklara minst 3 ställen där TypeScript ger fördelar jämfört med JavaScript i din kod:
+
+1. Tydlig styrning av vad som visas:
+Jag kan enkelt se till vad som ska visas på startsidan respektive favoritsidan. Genom att använda interfaces kolla booleans för featured och favorite kan jag vara säker på att det inte pushas in något felaktigt i listorna. Jag kan därför se till att dessa fält alltid finns och alltid är av rätt typ.
+
+2. Säkra inputs:
+Jag kan undvika buggar genom att säkerställa att alla inputs tar emot rätt typ när man lägger till en stad. Exempel: timeZone måste vara ett nummer, annars varnar TypeScript direkt.
+
+3. När jag deklarerar state med t.ex. useState<CityCard[]>([]) garanterar TypeScript att det bara kan innehålla CityCard-objekt. Det gör att jag kan typkolla all data (cityName, countryName, timeZone osv.) och inte kan lägga in något ogiltigt.
+
+# Beskriv hur TypeScript transpileras till JavaScript i ditt projekt:
+
+1. Jag skriver koden i TypeScript (all källkod är TS/TSX). Typerna finns bara under utveckling, webbläsaren kan inte läsa TypeScript.
+
+2. Vite omvandlar TS till JS när jag kör "npm run dev". Vite använder esbuild "bakom kulisserna" och tar bort alla typer, kompilerar TS/TSX till vanlig JS, hanterar import/export och JSX (React) och resultatet som skickas till webbläsaren är alltid JavaScript.
+
+3. I tsconfig.app.json har jag noEmit: true och bundler-orienterade inställningar. Det betyder att TypeScript-kompilatorn inte skriver ut några .js-filer själv, istället är det Vite (bundlern) som hanterar översättning och paketering.
+
+4. Om man kör "npm run build" så låter Vite hela projektet transpileras från TS till JS, optimera och slå ihop till en liten och effektiv "bundle" och lägga det färdiga resultatet i mappen "dist/". Webbläsaren får sen bara rena .js-filer och statiska assets (typ bilder och CSS).
+
+5. Sammanfattat: Jag kodar i TS för säkerhet och tydlighet > dev: Vite tar bort typer och levererar JS direkt > build: Vite skapar optimerade JS i "dist/" > Webbläsaren ser aldrig TS utan bara vanlig JS som "bundlern" har genererat åt mig.
