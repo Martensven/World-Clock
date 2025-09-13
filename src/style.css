@@ -63,3 +63,130 @@ button:active {
     height: 30px;
     width: 200px;
 }
+
+.cardContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+}
+
+.cityCard {
+    border: 1px black solid;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 440px;
+    line-height: 50%;
+    margin: 5px;
+    background-color: #fcfcfc;
+}
+
+.digitalClock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 152.5px;
+    width: 90%;
+    background-color: rgb(51, 51, 51);
+    color: white;
+    border-radius: 25px;
+    font-size: x-large;
+    padding: 0;
+}
+
+.searchContainer {
+    position: relative;
+    /* gör att dropdown kan placeras relativt input */
+    display: inline-block;
+}
+
+.searchBtn {
+    margin-left: 5px;
+}
+
+.suggestionList {
+    position: absolute;
+    top: 100%;
+    /* lägg listan direkt under input */
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+}
+
+.suggestionList li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.suggestionList li:hover {
+    background-color: #f0f0f0;
+}
+
+footer {
+    width: 100%;
+    text-align: center;
+    background-color: rgb(41, 41, 41);
+    color: white;
+}
+
+header {
+    width: 100%;
+    text-align: center;
+    background-color: rgb(41, 41, 41);
+    color: white;
+}
+
+header button {
+    margin: 5px;
+    font-size: large;
+
+}
+
+@media (max-width: 1600px) {
+
+    .cardContainer {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-content: space-around;
+    }
+
+}
+
+@media (max-width: 1050px) {
+
+    .cardContainer {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        justify-content: space-around;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .cardContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .cityCard {
+        border: 1px black solid;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+}

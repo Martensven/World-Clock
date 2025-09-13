@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { getCities, toggleFavorite } from "../utils/cityUtils";
 import { type City, type CityCard } from "../../interfaces/cityCard";
-import SearchBar from "./SearchBar";
+import SearchBar from "./SearchBar.tsx";
 import CityCardComponent from "./CityCard";
-import "../style.css";
+
 
 export default function FrontPage() {
     const [cityInput, setCityInput] = useState("");
