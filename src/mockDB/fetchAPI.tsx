@@ -1,20 +1,10 @@
 import { useState, useEffect } from "react";
 import { getCities, toggleFavorite } from "./cityUtils";
+import { type City, type CityCard } from "../interfaces/cityCard";
 import AnalogClock from "../components/clocks/AnalogClock";
 import "./style.css";
 
-interface City {
-    cityName: string;
-    countryName: string;
-    timeZone: number;
-    featuredCity: string;
-    favorite?: boolean;
-}
 
-interface CityCard extends City {
-    currentTime: Date;
-    mode: "analog" | "digital";
-}
 
 export default function FetchAPI() {
     const [cityInput, setCityInput] = useState("");
