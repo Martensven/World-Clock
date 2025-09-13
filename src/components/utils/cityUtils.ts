@@ -1,5 +1,5 @@
 // cityUtils.ts
-import cityList from "./cityList";
+import cityList from "../../mockDB/cityList";
 
 export interface City {
     cityName: string;

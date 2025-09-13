@@ -37,13 +37,8 @@ button:active {
     background-color: hsl(0, 0%, 30%);
 }
 
-.searchBtn {
-    border-radius: 0px 5px 5px 0px;
-}
-
 .removeBtn {
-    width: 32.5px;
-    height: 32.5px;
+    width: 50px;
     background-color: hsl(0, 100%, 39%);
 }
 
