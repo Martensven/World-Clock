@@ -55,7 +55,7 @@ Jag kan enkelt se till vad som ska visas på startsidan respektive favoritsidan.
 2. Säkra inputs:
 Jag kan undvika buggar genom att säkerställa att alla inputs tar emot rätt typ när man lägger till en stad. Exempel: timeZone måste vara ett nummer, annars varnar TypeScript direkt.
 
-3. När jag deklarerar state med t.ex. useState<CityCard[]>([]) garanterar TypeScript att det bara kan innehålla CityCard-objekt. Det gör att jag kan typkolla all data (cityName, countryName, timeZone osv.) och inte kan lägga in något ogiltigt.
+3. När jag deklarerar state med t.ex. ```useState<CityCard[]>([])``` garanterar TypeScript att det bara kan innehålla CityCard-objekt. Det gör att jag kan typkolla all data (cityName, countryName, timeZone osv.) och inte kan lägga in något ogiltigt.
 
 # Beskriv hur TypeScript transpileras till JavaScript i ditt projekt:
 
