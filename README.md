@@ -11,13 +11,11 @@ npm install
 npm run dev
 ```
 
-#Loggbok
+# Loggbok
 
-##Skiss
+## Skiss
 
-##Uppdelning av applikationen
+## Uppdelning av applikationen
 
-##Användning av Git
-
-##
+## Användning av Git
 
